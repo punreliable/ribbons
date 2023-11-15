@@ -1,0 +1,91 @@
+h1 {
+  --r: 20px; /* control the cutout of the ribbon */
+  --c: #d81a14;
+  padding-inline: calc(0.2em + var(--r));
+  text-align: center;
+  line-height: 1.9;
+  color: #fff;
+  background-image: linear-gradient(var(--c) 70%, rgba(0, 0, 0, 0) 0), linear-gradient(to bottom left, rgba(0, 0, 0, 0) 50%, color-mix(in srgb, var(--c), #000 40%) 51% 84%, rgba(0, 0, 0, 0) 85%);
+  background-position: 0 0.15lh;
+  background-size: 100% 1lh;
+}
+
+h1.one {
+  clip-path: polygon(0 0.15lh, 100% 0.15lh, calc(100% - var(--r)) 0.5lh, 100% 0.85lh, 100% calc(100% - 0.15lh), 0 calc(100% - 0.15lh), var(--r) calc(100% - 0.5lh), 0 calc(100% - 0.85lh));
+}
+
+h1.two {
+  --a: 20deg; /* control the angle of the folded part */
+  --s: 6em;
+  padding-inline: calc(1lh * tan(var(--a)/2) + 0.3em);
+  position: relative;
+  clip-path: polygon(0 0.15lh, calc(100% - 0.7lh / sin(var(--a))) 0.15lh, calc(100% - 0.7lh / sin(var(--a)) - 999px) calc(0.15lh - 999px * tan(var(--a))), 100% -999px, 100% 0.15lh, calc(100% - 0.7lh * tan(var(--a)/2)) 0.85lh, 100% 1lh, 100% calc(100% - 0.15lh), calc(0.7lh / sin(var(--a))) calc(100% - 0.15lh), calc(0.7lh / sin(var(--a)) + 999px) calc(100% - 0.15lh + 999px * tan(var(--a))), 0 999px, 0 calc(100% - 0.15lh), calc(0.7lh * tan(var(--a)/2)) calc(100% - 0.85lh), 0 calc(100% - 1lh));
+}
+
+h1.two:before,
+h1.two:after {
+  content: "";
+  position: absolute;
+  height: 0.7lh;
+  width: var(--s);
+  background: color-mix(in srgb, var(--c), #000 40%);
+  rotate: var(--a);
+}
+
+h1.two:before {
+  top: 0.15lh;
+  right: 0;
+  transform-origin: top right;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.7lh / tan(var(--a))) 100%, 0 100%, var(--r) 50%);
+}
+
+h1.two:after {
+  bottom: 0.15lh;
+  left: 0;
+  transform-origin: bottom left;
+  clip-path: polygon(calc(0.7lh / tan(var(--a))) 0, 100% 0, calc(100% - var(--r)) 50%, 100% 100%, 0 100%);
+}
+
+@supports not (height: 1lh) {
+  h1 {
+    background-position: 0 0.285em;
+    background-size: 100% 1.9em;
+  }
+  h1.one {
+    clip-path: polygon(0 0.285em, 100% 0.285em, calc(100% - var(--r)) 0.95em, 100% 1.615em, 100% calc(100% - 0.285em), 0 calc(100% - 0.285em), var(--r) calc(100% - 0.95em), 0 calc(100% - 1.615em));
+  }
+  h1.two {
+    clip-path: polygon(0 0.285em, calc(100% - 1.33em / sin(var(--a))) 0.285em, calc(100% - 1.33em / sin(var(--a)) - 999px) calc(0.285em - 999px * tan(var(--a))), 100% -999px, 100% 0.285em, calc(100% - 1.33em * tan(var(--a)/2)) 1.615em, 100% 1.9em, 100% calc(100% - 0.285em), calc(1.33em / sin(var(--a))) calc(100% - 0.285em), calc(1.33em / sin(var(--a)) + 999px) calc(100% - 0.285em + 999px * tan(var(--a))), 0 999px, 0 calc(100% - 0.285em), calc(1.33em * tan(var(--a)/2)) calc(100% - 1.615em), 0 calc(100% - 1.9em));
+  }
+  h1.two:before,
+  h1.two:after {
+    height: 1.33em;
+    width: 5em;
+  }
+  h1.two:before {
+    top: 0.285em;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 1.33em / tan(var(--a))) 100%, 0 100%, var(--r) 50%);
+  }
+  h1.two:after {
+    bottom: 0.285em;
+    clip-path: polygon(calc(1.33em / tan(var(--a))) 0, 100% 0, calc(100% - var(--r)) 50%, 100% 100%, 0 100%);
+  }
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  align-items: center;
+  grid-auto-flow: column;
+  gap: 50px;
+  line-height: 1.9;
+}
+
+h1 {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+}
+
+/*# sourceMappingURL=styles.css.map */
